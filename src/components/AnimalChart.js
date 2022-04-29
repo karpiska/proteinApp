@@ -58,102 +58,94 @@ nutsFruitsVeggiesOptions.plugins.title.text= 'Nuts, fruits and veggies diet'
 export const fruitsVeggiesOptions = clone(allOptions)
 fruitsVeggiesOptions.plugins.title.text= 'Fruits and veggies diet'
 
-const allLabels = Object.keys(comboData[0]);
-allLabels.shift()
-const allDataset = Object.values(comboData[0])
-allDataset.shift()
-const animalLabels = Object.keys(comboData[1]);
-animalLabels.shift()
-const animalDataSet = Object.values(comboData[1])
-animalDataSet.shift()
-const meatLabels = Object.keys(comboData[2])
-meatLabels.shift()
-const meatDataset = Object.values(comboData[2])
-meatDataset.shift()
-const chickenLabels = Object.keys(comboData[3])
-chickenLabels.shift()
-const chickenDataset = Object.values(comboData[3])
-chickenDataset.shift()
-const meatLegumesLabels = Object.keys(comboData[4]);
-meatLegumesLabels.shift()
-const meatLegumesDataset = Object.values(comboData[4])
-meatLegumesDataset.shift()
-const legumesLabels = Object.keys(comboData[5]);
-legumesLabels.shift()
-const legumesDataset = Object.values(comboData[5])
-legumesDataset.shift()
-const legumesGrainsNutsLabels = Object.keys(comboData[6]);
-legumesGrainsNutsLabels.shift()
-const legumesGrainsNutsDataset = Object.values(comboData[6])
-legumesGrainsNutsDataset.shift()
-const nutsFruitsVeggiesLabels = Object.keys(comboData[7]);
-nutsFruitsVeggiesLabels.shift()
-const nutsFruitsVeggiesDataset = Object.values(comboData[7])
-nutsFruitsVeggiesDataset.shift()
-const fruitsVeggiesLabels = Object.keys(comboData[8]);
-fruitsVeggiesLabels.shift()
-const fruitsVeggiesDataset = Object.values(comboData[8])
-fruitsVeggiesDataset.shift()
+const compactData = comboData.map((value, index) => {
+    const {Category, ...food} = value
+
+    return ({
+        labels: Object.keys(food),
+        data: Object.values(food).map(function (each_element){
+            return Number(Math.ceil(each_element));
+        }),
+    })
+})
 
 export const allData = {
-    labels: allLabels,
+    labels: compactData[0].labels,
     datasets: [
         {
             label: 'grams per day',
-            data: allDataset,
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
+            data: compactData[0].data,
+            borderColor: 'rgba(49, 212, 188)',
+            backgroundColor: 'rgba(49, 212, 188)',
         }]
 }
 
 export const animalData = clone(allData)
-animalData.labels = animalLabels.slice(0, 5)
-animalData.datasets.data = animalDataSet.slice(0, 5)
-
+animalData.labels = compactData[1].labels.slice(0, 6)
+animalData.datasets[0].data = compactData[1].data.slice(0, 6)
 
 export const meatData = clone(allData)
-animalData.labels = meatLabels.slice(0, 5)
-animalData.datasets.data = meatDataset.slice(0, 5)
-
+meatData.labels = compactData[2].labels.slice(0, 6)
+meatData.datasets[0].data = compactData[2].data.slice(0, 6)
 
 export const chickenData = clone(allData)
-chickenData.labels = chickenLabels.slice(0, 5)
-chickenData.datasets.data = chickenDataset.slice(0, 5)
+chickenData.labels = compactData[3].labels.slice(3, 4)
+chickenData.datasets[0].data = compactData[3].data.slice(3, 4)
 
-export const meatLegumesData = {
-    labels: meatLegumesLabels.slice(0, 11),
-    datasets: [
-        {
-            label: 'grams per day',
-            data: meatLegumesDataset.slice(0, 11),
-            borderColor: 'rgb(255, 99, 132)',
-            backgroundColor: 'rgba(255, 99, 132, 0.5)',
-        }]
-}
+export const meatLegumesData = clone(allData)
+meatLegumesData.labels = compactData[4].labels.slice(0, 11)
+meatLegumesData.datasets[0].data = compactData[4].data.slice(0, 11)
 
+export const legumesData = clone(allData)
+legumesData.labels = compactData[5].labels.slice(6, 11)
+legumesData.datasets[0].data = compactData[5].data.slice(6, 11)
+
+export const legumesGrainsNutsData = clone(allData)
+legumesGrainsNutsData.labels = compactData[6].labels.slice(6, 20)
+legumesGrainsNutsData.datasets[0].data = compactData[6].data.slice(6, 20)
+
+export const nutsFruitsVeggiesData = clone(allData)
+nutsFruitsVeggiesData.labels = compactData[7].labels.slice(16, 35)
+nutsFruitsVeggiesData.datasets[0].data = compactData[7].data.slice(16, 35)
+
+export const fruitsVeggiesData = clone(allData)
+fruitsVeggiesData.labels = compactData[8].labels.slice(20, 35)
+fruitsVeggiesData.datasets[0].data = compactData[8].data.slice(20, 35)
 
 export function AllChart() {
     return <Bar options={allOptions} data={allData} />;
 }
 
-
 export function AnimalChart() {
     return <Bar options={animalOptions} data={animalData} />;
 }
-//
-// export function MeatChart() {
-//     return <Bar options={meatOptions} data={meatData} />;
-// }
-//
-// export function MeatChart() {
-//     return <Bar options={meatOptions} data={meatData} />;
-// }
+
+export function MeatChart() {
+    return <Bar options={meatOptions} data={meatData} />;
+}
+
+export function ChickenChart() {
+    return <Bar options={chickenOptions} data={chickenData} />;
+}
 
 export function MeatLegumesChart() {
     return <Bar options={meatLegumesOptions} data={meatLegumesData} />;
 }
 
-// export function Legumeshart() {
-//     return <Bar options={meatOptions} data={meatData} />;
-// }
+export function LegumesChart() {
+    return <Bar options={legumesOptions} data={legumesData} />;
+}
+
+export function LegumesGrainsNutsChart() {
+    return <Bar options={legumesGrainsNutsOptions} data={legumesGrainsNutsData} />;
+}
+
+export function NutsFruitsVeggiesChart() {
+    return <Bar options={nutsFruitsVeggiesOptions} data={nutsFruitsVeggiesData} />;
+}
+
+export function FruitsVeggiesChart() {
+    return <Bar options={fruitsVeggiesOptions} data={fruitsVeggiesData} />;
+}
+
 
