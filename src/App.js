@@ -1,8 +1,8 @@
 import './App.css';
-import BarChart from './components/BarChart'
 import { useState } from 'react';
 import { AppBar, Toolbar, Button, ButtonGroup, Container } from '@mui/material';
-import AnimalChart from "./components/AnimalChart";
+import BarChart from './components/BarChart';
+import {AllChart, AnimalChart, MeatLegumesChart, MeatChart} from "./components/AnimalChart";
 
 const App = () => {
   const [selectedGraph, setSelectedGraph] = useState('Aminoacids')
@@ -11,7 +11,7 @@ const App = () => {
         if (selectedGraph === 'Aminoacids') {
             return  <BarChart/>
         } else {
-            return <AnimalChart/>
+            return <AnimalChart />
         }
     }
 
